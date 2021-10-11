@@ -16,6 +16,9 @@ The versions used in these containers are the latest available for each official
 
 The Nginx configuration can be found in `config/nginx/`.
 
+The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
+You can create multiple virtualhost inside `nginx.conf` file or you can create separate files as you like, and adjust the path of your applications remember `/var/www/html` is point to `app` folder, so you have to play with these paths to configure your web applications correctly.
+
 The PHP configuration can be found in `config/php/`.
 
 The MariaDB configuration can be found in `config/mariadb/`.
@@ -57,3 +60,17 @@ Where `{CONTAINER_NAME}` is one of:
 * `{APP_NAME}-php`
 * `{APP_NAME}-nginx`
 * `{APP_NAME}-mariadb`
+
+### Contact / Social Media
+
+*Get the latest News about Web Development, Open Source, Tooling, Server & Security*
+
+[![Twitter](https://github.frapsoft.com/social/twitter.png)](https://twitter.com/lfelipe1501)
+[![Facebook](https://github.frapsoft.com/social/facebook.png)](https://www.facebook.com/lfelipe1501)
+[![Github](https://github.frapsoft.com/social/github.png)](https://github.com/lfelipe1501)
+
+### Development by
+
+Developer / Author: [Luis Felipe Sánchez](https://github.com/lfelipe1501)
+Company: [lfsystems](https://www.lfsystems.com.co)
+
