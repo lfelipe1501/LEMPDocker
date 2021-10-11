@@ -1,2 +1,6 @@
 ## Database Data NO Upload
-data/**/
+data/**
+*.log
+
+# The file containing environment variables 
+.env
