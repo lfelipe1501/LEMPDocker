@@ -9,20 +9,22 @@ The following versions are used.
 * PHP latest avaliable (FPM) - With MySQLi driver
 * Nginx latest avaliable
 * MariaDB latest avaliable
-* phpMyAdmin 5 version Latest
+* phpMyAdmin 5 version Latest - access whit port 9903
 
 The versions used in these containers are the latest available for each official container of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
 
 ## Configuration
 
-The Nginx configuration can be found in `config/nginx/`.
+The __NGINX__ configuration can be found in `config/nginx/`.
 
 The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
 You can create multiple virtualhost inside `nginx.conf` file or you can create separate files as you like, and adjust the path of your applications remember `/var/www/html` is point to `app` folder, so you have to play with these paths to configure your web applications correctly.
 
-The PHP configuration can be found in `config/php/`.
+The __PHP__ configuration can be found in `config/php/`.
 
-The MariaDB configuration can be found in `config/mariadb/`.
+The __MariaDB__ configuration can be found in `config/mariadb/`.
+
+The __phpMyAdmin__ configuration can be found in `docker-compose.yml` at the end the file.
 
 You can also set the following environment variables, for example in the included `.env` file:
 
