@@ -1,8 +1,0 @@
-## Database Data NO Upload
-data/**
-
-## No logs upload
-*.log
-
-# The file containing environment variables 
-.env
