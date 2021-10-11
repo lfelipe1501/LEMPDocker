@@ -1,0 +1,65 @@
+version: '3'
+services:
+    php:
+        # image: 'php:7.4-fpm'
+        build:
+            context: ./config/php
+            dockerfile: php.Dockerfile
+        container_name: ${APP_NAME:?err}-php
+        volumes:
+            - './app:/var/www/html'
+        depends_on:
+            - mariadb
+
+    nginx:
+        #image: nginx:latest
+        build:
+            context: ./config/nginx
+            dockerfile: nginx.Dockerfile
+        container_name: ${APP_NAME:?err}-nginx
+        restart: 'on-failure'
+        ports:
+            - '80:80'
+            - '443:443'
+        links:
+            - php
+        volumes:
+            - './app:/var/www/html'
+            - './config/nginx:/etc/nginx/conf.d'
+
+    mariadb:
+        # image: mariadb:latest
+        build:
+            context: ./config/mariadb
+            dockerfile: mariadb.Dockerfile
+            args:
+              - http_proxy
+              - https_proxy
+              - no_proxy
+        container_name: ${APP_NAME:?err}-mariadb
+        # restart: 'on-failure'
+        environment:
+            - "TZ=${WORKSPACE_TIMEZONE}"
+            - "MYSQL_DATABASE=${MARIADB_DATABASE}"
+            - "MYSQL_USER=${MARIADB_USER}"
+            - "MYSQL_PASSWORD:${MARIADB_PASSWORD}"
+            - "MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
+        volumes:
+            - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
+        healthcheck:
+            test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+            interval: 5s
+            retries: 10
+    
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin:5
+      container_name: ${APP_NAME:?err}-phpmyadm
+      ports:
+        - 9903:80
+      links:
+        - mariadb
+        - php
+      environment:
+        PMA_HOST: mariadb
+      depends_on:
+        - mariadb
