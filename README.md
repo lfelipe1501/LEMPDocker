@@ -32,6 +32,7 @@ You can also set the following environment variables, for example in the include
 |-----|-------------|
 |APP_NAME|The name used when creating a container.|
 |WORKSPACE_TIMEZONE|The timezone used when creating a db container.|
+|PMA_PPORT|The phpMyAdmin port for access.|
 |MYSQL_ROOT_PASSWORD|The MySQL root password used when creating the db container.|
 |MARIADB_DATABASE|The MySQL database used when creating the db container.|
 |MARIADB_USER|The MySQL user other than root used when creating the db container.|
