@@ -9,7 +9,7 @@ The following versions are used.
 * PHP latest avaliable (FPM) - With MySQLi driver
 * Nginx latest avaliable
 * MariaDB latest avaliable
-* phpMyAdmin 5 version Latest - access whit port 9903
+* phpMyAdmin 5 version Latest - Access with custom Port in .env
 
 The versions used in these containers are the latest available for each official container of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
 
