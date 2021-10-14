@@ -1,39 +1,26 @@
 <?php
+$servername = "mariadb";
+$username = "felipe";
+$password = "Felipe01";
+$dbname = "pruebas";
 
-$magicNumbers = [
-    rand(0, 100),
-    rand(100, 200),
-    rand(0, 1000),
-];
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
 
+$sql = "SELECT id, mensaje, nulo FROM test_content";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo " " . $row["mensaje"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="author" content="Steven Liebregt" />
-        <title>Hello, world!</title>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Hello, world!</h1>
-        <p>Your magic numbers are:</p>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Number</th>
-            <tr>
-            <?php foreach ($magicNumbers as $index => $number): ?>
-                <tr>
-                    <td><?php echo $index; ?></td>
-                    <td><?php echo $number; ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <p>If you can see this properly, then it means PHP is working fine.</p>
-    </body>
-</html>
