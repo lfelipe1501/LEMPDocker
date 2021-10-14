@@ -1,10 +1,10 @@
-CREATE DATABASE IF NOT EXISTS \`${DBUP}\`;
+CREATE DATABASE IF NOT EXISTS `${DBUP}`;
 
 --CREATE USER '${newUser}'@'%' IDENTIFIED BY '${newDbPassword}';
 
 GRANT USAGE ON *.* TO '${USERDB}'@'%' IDENTIFIED BY '${UPWDB}';
 
-GRANT ALL privileges ON \`${DBUP}\`.* TO '${USERDB}'@'%';
+GRANT ALL privileges ON `${DBUP}`.* TO '${USERDB}'@'%';
 
 FLUSH PRIVILEGES;
 
