@@ -55,7 +55,7 @@ services:
       image: phpmyadmin/phpmyadmin:5
       container_name: ${APP_NAME:?err}-phpmyadm
       ports:
-        - 9903:80
+        - ${PMA_PPORT}:80
       links:
         - mariadb
         - php
