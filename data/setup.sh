@@ -7,9 +7,9 @@
 # @website  https://www.lfsystems.com.co
 # @version  1.0
 
-SQL1="CREATE DATABASE IF NOT EXISTS ${DBUP};GRANT USAGE ON *.* TO '${USERDB}'@'%' IDENTIFIED BY '${UPWDB}';"
-SQL2="GRANT ALL privileges ON ${DBUP}.* TO '${USERDB}'@'%' WITH GRANT OPTION;"
+SQL1="CREATE DATABASE IF NOT EXISTS ${MDB_DATABASE}; CREATE USER IF NOT EXISTS '${MDB_USER}'@'%' IDENTIFIED BY '${MDB_PASSWORD}';"
+SQL2="GRANT USAGE ON *.* TO '${MDB_USER}'@'%' IDENTIFIED BY '${MDB_PASSWORD}'; GRANT ALL privileges ON ${MDB_DATABASE}.* TO '${MDB_USER}'@'%' WITH GRANT OPTION;"
 SQL3="FLUSH PRIVILEGES;"
-SQL4="USE ${DBUP}; CREATE TABLE test_content ( id int(11) NOT NULL, mensaje text NOT NULL, nulo int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1; INSERT INTO test_content (id, mensaje, nulo) VALUES (1, 'All systems and containers working!', NULL); ALTER TABLE test_content ADD PRIMARY KEY (id); COMMIT;"
+SQL4="USE ${MDB_DATABASE}; CREATE TABLE test_content ( id int(11) NOT NULL, mensaje text NOT NULL, nulo int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1; INSERT INTO test_content (id, mensaje, nulo) VALUES (1, 'All systems and containers working!', NULL); ALTER TABLE test_content ADD PRIMARY KEY (id); COMMIT;"
 
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "${SQL1}${SQL2}${SQL3}${SQL4}"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "${SQL1}${SQL2}${SQL3}${SQL4}"
