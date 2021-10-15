@@ -28,9 +28,11 @@ services:
             - '443:443'
         links:
             - php
+        environment:
+            - "TZ=${WORKSPACE_TIMEZONE}"
         volumes:
             - './app:/var/www/html'
-            - './config/nginx:/etc/nginx/conf.d'
+            - './config/nginx/sites:/etc/nginx/conf.d'
 
     mariadb:
         # image: mariadb:latest
