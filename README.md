@@ -18,7 +18,7 @@ The versions used in these containers are the latest available for each official
 The __NGINX__ configuration can be found in `config/nginx/`.
 
 The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
-You can create multiple virtualhost inside `nginx.conf` file or you can create separate files as you like, and adjust the path of your applications remember `/var/www/html` is point to `app` folder, so you have to play with these paths to configure your web applications correctly.
+You can create multiple virtualhost inside `config/sites/` you can create separate files `.conf` as you like, and adjust the path of your applications.
 
 The __PHP__ configuration can be found in `config/php/`.
 
