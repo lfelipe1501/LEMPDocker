@@ -1,8 +1,8 @@
 <?php
 $servername = "mariadb";
-$username = getenv('MDB_USER');
-$password = getenv('MDB_PSWD');
-$dbname = getenv('MDB_DB');
+$username = getenv('USERDB');
+$password = getenv('UPWDB');
+$dbname = getenv('DBUP');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

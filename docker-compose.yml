@@ -8,9 +8,9 @@ services:
         container_name: ${APP_NAME:?err}-php
         environment:
             - "TZ=${WORKSPACE_TIMEZONE}"
-            - "MDB_DB=${MARIADB_DATABASE}"
-            - "MDB_USER=${MARIADB_USER}"
-            - "MDB_PSWD:${MARIADB_PASSWORD}"
+            - "DBUP=${MARIADB_DATABASE}"
+            - "USERDB=${MARIADB_USER}"
+            - "UPWDB=${MARIADB_PASSWORD}"
         volumes:
             - './app:/var/www/html'
         depends_on:
@@ -45,9 +45,9 @@ services:
         # restart: 'on-failure'
         environment:
             - "TZ=${WORKSPACE_TIMEZONE}"
-            - "MDB_DB=${MARIADB_DATABASE}"
-            - "MDB_USER=${MARIADB_USER}"
-            - "MDB_PSWD:${MARIADB_PASSWORD}"
+            - "DBUP=${MARIADB_DATABASE}"
+            - "USERDB=${MARIADB_USER}"
+            - "UPWDB=${MARIADB_PASSWORD}"
             - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
         volumes:
             - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
