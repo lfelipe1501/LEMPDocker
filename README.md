@@ -1,4 +1,4 @@
-# Docker Compose LEMP stack with Latest Versions
+# Docker Compose LEMP stack
 
 This repository contains a little `docker-compose` configuration to start a `LEMP (Linux, Nginx, MariaDB, PHP)` stack.
 
@@ -53,17 +53,32 @@ Clone this repository with the following command: `git clone https://github.com/
 
 Start the server using the following command inside the directory you just cloned: `docker-compose up -d`.
 
+## Restart the containers
+
+If you make changes to the php and nginx config files (ini, conf, etc) you must restart each container to apply these changes, with the respective commands:
+
+Where `{CONTAINER_NAME}` is one of:
+
+* `{APP_NAME}-php`
+* `{APP_NAME}-nginx`
+
+`docker restart {CONTAINER_NAME}`
+
+> example: `docker restart lfsystems-nginx`
+
 ## Entering the containers
 
 You can use the following command to enter a container:
 
 Where `{CONTAINER_NAME}` is one of:
 
-`docker exec -ti {CONTAINER_NAME} /bin/bash`
-
 * `{APP_NAME}-php`
 * `{APP_NAME}-nginx`
 * `{APP_NAME}-mariadb`
+
+`docker exec -ti {CONTAINER_NAME} bash`
+
+> example: `docker exec -ti lfsystems-php bash`
 
 ### Contact / Social Media
 
