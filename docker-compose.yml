@@ -33,6 +33,7 @@ services:
             - "TZ=${WORKSPACE_TIMEZONE}"
         volumes:
             - ./app:/var/www/html
+            - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./config/nginx/sites:/etc/nginx/conf.d
 
     mariadb:
