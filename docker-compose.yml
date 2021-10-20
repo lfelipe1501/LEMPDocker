@@ -12,7 +12,8 @@ services:
             - "USERDB=${MARIADB_USER}"
             - "UPWDB=${MARIADB_PASSWORD}"
         volumes:
-            - './app:/var/www/html'
+            - ./config/php/php.ini:/usr/local/etc/php/php.ini
+            - ./app:/var/www/html
         depends_on:
             - mariadb
 
@@ -31,8 +32,8 @@ services:
         environment:
             - "TZ=${WORKSPACE_TIMEZONE}"
         volumes:
-            - './app:/var/www/html'
-            - './config/nginx/sites:/etc/nginx/conf.d'
+            - ./app:/var/www/html
+            - ./config/nginx/sites:/etc/nginx/conf.d
 
     mariadb:
         # image: mariadb:latest
