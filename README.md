@@ -48,7 +48,9 @@ To use it, simply follow the following steps:
 ##### Clone this repository.
 
 Clone this repository with the following command:
-`git clone https://github.com/lfelipe1501/LEMPDocker.git`.
+```bash
+git clone https://github.com/lfelipe1501/LEMPDocker.git
+```
 
 ##### Start the server.
 
