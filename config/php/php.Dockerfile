@@ -7,7 +7,7 @@ ENV TZ ${TZ}
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install dependencies
-RUN apt-get update && apt-get install -y build-essential libpng-dev zlib1g-dev libzip-dev libjpeg62-turbo-dev libfreetype6-dev locales bash-completion zip unzip jpegoptim optipng pngquant gifsicle vim nano apt-utils htop openssl git lsof libpq-dev libmagick++-dev libmagickwand-dev curl strace libwebp-dev libxpm-dev libzip-dev
+RUN apt-get update && apt-get install -y libpng-dev zlib1g-dev libzip-dev libjpeg62-turbo-dev libfreetype6-dev locales bash-completion zip unzip jpegoptim optipng pngquant gifsicle nano apt-utils openssl git lsof libpq-dev libmagick++-dev libmagickwand-dev curl strace libwebp-dev libxpm-dev libzip-dev
 
 
 # Install composer
