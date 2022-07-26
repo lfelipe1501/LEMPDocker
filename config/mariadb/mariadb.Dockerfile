@@ -1,5 +1,7 @@
 FROM mariadb:latest
 
+LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
+
 ## Set Timezone
 ARG TZ=UTC
 ENV TZ ${TZ}

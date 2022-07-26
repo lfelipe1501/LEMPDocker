@@ -1,10 +1,14 @@
 FROM nginx:latest
 
+LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
+
 # Install dependencies
 RUN apt-get update && apt-get install -y openssl locales bash-completion zip unzip vim nano
 
 # Clear package lists
-RUN apt-get clean all; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+RUN apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* /var/tmp/*
 
 ## Set Timezone
 ARG TZ=UTC

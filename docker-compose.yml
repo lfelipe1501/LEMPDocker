@@ -1,9 +1,14 @@
 version: '3'
+
+volumes:
+  phpmyadmin_data:
+
 services:
     php:
-        # image: 'php:7.4-fpm'
         build:
             context: ./config/php
+            args:
+                - "VPHP=${VERSION_PHP}"
             dockerfile: php.Dockerfile
         container_name: ${APP_NAME:?err}-php
         environment:
@@ -18,7 +23,7 @@ services:
             - mariadb
 
     nginx:
-        #image: nginx:latest
+        # image: nginx:latest
         build:
             context: ./config/nginx
             dockerfile: nginx.Dockerfile
@@ -27,14 +32,23 @@ services:
         ports:
             - '80:80'
             - '443:443'
+            - ${PMA_PORT}:9980
+            - ${PMASSL_PORT}:9443
         links:
             - php
+            - phpmyadmin
         environment:
             - "TZ=${WORKSPACE_TIMEZONE}"
+            - "PMAP=${PMA_PORT}"
+            - "PMAPS=${PMASSL_PORT}"
         volumes:
             - ./app:/var/www/html
+            - phpmyadmin_data:/var/www/pma
             - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./config/nginx/sites:/etc/nginx/conf.d
+        depends_on:
+            - mariadb
+            - phpmyadmin
 
     mariadb:
         # image: mariadb:latest
@@ -62,14 +76,15 @@ services:
             retries: 10
     
     phpmyadmin:
-      image: phpmyadmin/phpmyadmin:latest
-      container_name: ${APP_NAME:?err}-phpmyadm
-      ports:
-        - ${PMA_PPORT}:80
-      links:
-        - mariadb
-        - php
-      environment:
-        PMA_HOST: mariadb
-      depends_on:
-        - mariadb
+        image: phpmyadmin:fpm-alpine   
+        container_name: ${APP_NAME:?err}-pma
+        links:
+            - mariadb            
+        environment:
+            PMA_HOST: mariadb
+            HIDE_PHP_VERSION: 1
+            UPLOAD_LIMIT: 4096M
+        volumes:
+            - phpmyadmin_data:/var/www/html/
+        depends_on:
+            - mariadb
