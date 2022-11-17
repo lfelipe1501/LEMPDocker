@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script to create MySQL db + user
+# Script to create MySQL db + user.
 #
 # @author   Luis Felipe <lfelipe1501@gmail.com>
 # @website  https://www.lfsystems.com.co
