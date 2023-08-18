@@ -69,7 +69,7 @@ Where `{CONTAINER_NAME}` is one of:
 
 `docker restart {CONTAINER_NAME}`
 
-> example: `docker restart lfsystems-nginx`
+> example: `docker restart lfs-nginx`
 
 ## Entering the containers
 
@@ -83,7 +83,7 @@ Where `{CONTAINER_NAME}` is one of:
 
 `docker exec -ti {CONTAINER_NAME} bash`
 
-> example: `docker exec -ti lfsystems-php bash`
+> example: `docker exec -ti lfs-php bash`
 
 ### Contact / Social Media
 
