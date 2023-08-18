@@ -1,6 +1,6 @@
 # Docker Compose LEMP stack
 
-This repository contains a little `docker-compose` configuration to start a `LEMP (Linux, Nginx, MariaDB, PHP)` stack.
+This repository contains a little `docker compose` configuration to start a `LEMP (Linux, Nginx, MariaDB, PHP)` stack.
 
 ## Details
 
@@ -56,7 +56,7 @@ git clone https://github.com/lfelipe1501/LEMPDocker.git
 
 ##### Start the server.
 
-Start the server using the following command inside the directory you just cloned: `docker-compose up -d`.
+Start the server using the following command inside the directory you just cloned: `docker compose up -d`.
 
 ## Restart the containers
 
@@ -84,6 +84,10 @@ Where `{CONTAINER_NAME}` is one of:
 `docker exec -ti {CONTAINER_NAME} bash`
 
 > example: `docker exec -ti lfs-php bash`
+
+##### Stop the server.
+
+Stop the server using the following command inside the directory you just cloned: `docker compose down`.
 
 ### Contact / Social Media
 
