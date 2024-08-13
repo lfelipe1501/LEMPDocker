@@ -1,2 +1,4 @@
-data/*/
+data/mariadb/*/
+data/nginx/*/
+data/nginx-ui/*/
 app/logs/**
