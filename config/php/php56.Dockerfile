@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.8
 
 LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 
@@ -22,12 +22,10 @@ RUN apk update && apk upgrade --available && sync\
     php${VPHP} php${VPHP}-fpm php${VPHP}-opcache php${VPHP}-pecl-xdebug\
     php${VPHP}-zlib php${VPHP}-curl php${VPHP}-session php${VPHP}-json\
     php${VPHP}-gd php${VPHP}-exif php${VPHP}-zip php${VPHP}-mysqli supervisor\
-    php${VPHP}-pdo php${VPHP}-iconv php${VPHP}-fileinfo php${VPHP}-xml\
-    php${VPHP}-common php${VPHP}-intl php${VPHP}-bcmath php${VPHP}-dom\
+    php${VPHP}-pdo php${VPHP}-iconv php${VPHP}-fileinfo php${VPHP}-xml php${VPHP}-mcrypt\
+    php${VPHP}-common php${VPHP}-intl php${VPHP}-bcmath php${VPHP}-dom php${VPHP}-mbstring\
     php${VPHP}-pdo_mysql php${VPHP}-xmlwriter php${VPHP}-phar php${VPHP}-ctype\
     php${VPHP}-soap php${VPHP}-sockets php${VPHP}-tidy php${VPHP}-pecl-imagick\
-    php${VPHP}-pgsql php${VPHP}-sodium php${VPHP}-tokenizer php${VPHP}-xmlreader\
-    php${VPHP}-pdo_pgsql php${VPHP}-simplexml php${VPHP}-mbstring\
     php${VPHP}-pear php${VPHP}-dev gcc musl-dev make ghostscript-fonts ghostscript\
     && ln -sf /usr/bin/php${VPHP} /usr/bin/php\
     && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*\

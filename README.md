@@ -11,18 +11,26 @@ The following versions are used.
 * MariaDB latest avaliable
 * phpMyAdmin 5 version Latest - Access with custom Port in .env
 
-The versions used in these containers are the latest available for each official container of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
+For the nginx and php containers, a Dockerfile is used for each one, where ALPINE is used as a base image and is adjusted according to the best security and configuration practices for each of these two services.
+
+The versions used in these containers are the latest available for each official package of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
+
+MariaDB container and phpMyAdmin use the official DockerHub containers so if you need something specific, you can use the official documentation of these containers and adjust it in the docker-compose.yml
 
 ## Configuration
 
 The __NGINX__ configuration can be found in `config/nginx/`.
 
 The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
-You can create multiple virtualhost inside `config/sites/` in separate files `.conf` if you want or you can create a file as different lines, it's up to you, and adjust the path of your applications.
+You can create multiple virtualhost inside `data/nginx/sites-avaliable/` in separate files `.conf` if you want, after this, activate them from the nginx-ui dashboard through port 81 or by connecting to the container and creating static links to the files in the nginx sites-enabled folder..
 
 The __PHP__ configuration can be found in `config/php/`.
 
-The __MariaDB__ configuration can be found in `config/mariadb/`.
+You can set the desired php version from the .env file for the versions currently supported by the php group, for example 81 or 82
+
+If you need an older version, for example 7.4 which is no longer supported or 5.6, you must set the version in the .env and also modify the `docker-compose.yml` file to set the dockerfile for the respective version which is located in the `config/php` folder where the extensions and alpine that supports the version are set.
+
+The __MariaDB__ configuration file my.cnf can be found in `config/mariadb/`.
 
 The __phpMyAdmin__ configuration can be found in `docker-compose.yml` at the end the file.
 
@@ -31,6 +39,10 @@ You can also set the following environment variables, for example in the include
 | Key | Description |
 |-----|-------------|
 |APP_NAME|The name used when creating a container.|
+|USR|Set User ID for mariadb container o for any container.|
+|GRP|Set Group ID for mariadb container o for any container.|
+|ARCH_TYPE|Set the architecture of the nginx-ui package (x86_64 or arm).|
+|NGXUI_PORT|Set nginx-ui port for Access.|
 |WORKSPACE_TIMEZONE|The timezone used when creating a db container.|
 |PMA_PORT|The phpMyAdmin port for access.|
 |PMASSL_PORT|The phpMyAdmin port for SSL access.|
@@ -83,7 +95,7 @@ Where `{CONTAINER_NAME}` is one of:
 
 `docker exec -ti {CONTAINER_NAME} bash`
 
-> example: `docker exec -ti lfs-php bash`
+> example: `docker exec -ti lfsys-php bash`
 
 ##### Stop the server.
 
