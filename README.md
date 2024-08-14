@@ -9,7 +9,7 @@ The following versions are used.
 * PHP latest avaliable (FPM) - With MySQLi driver
 * Nginx latest avaliable
 * MariaDB latest avaliable
-* phpMyAdmin 5 version Latest - Access with custom Port in .env
+* phpMyAdmin Latest Version - Access with custom Port in .env
 
 For the nginx and php containers, a Dockerfile is used for each one, where ALPINE is used as a base image and is adjusted according to the best security and configuration practices for each of these two services.
 
@@ -32,7 +32,7 @@ If you need an older version, for example 7.4 which is no longer supported or 5.
 
 The __MariaDB__ configuration file my.cnf can be found in `config/mariadb/`.
 
-The __phpMyAdmin__ configuration can be found in `docker-compose.yml` at the end the file.
+The __phpMyAdmin__ configuration can be found in `app/pma/config.inc.php`.
 
 You can also set the following environment variables, for example in the included `.env` file:
 
