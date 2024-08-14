@@ -10,7 +10,7 @@ $magicNumbers = [
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="author" content="Steven Liebregt" />
+        <meta name="author" content="lfelipe1501" />
         <title>Hello, world!</title>
         <style>
             table, th, td {
