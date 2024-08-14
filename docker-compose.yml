@@ -88,12 +88,12 @@ services:
             test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
             interval: 5s
             retries: 10
-    
+
     phpmyadmin:
         image: phpmyadmin:fpm-alpine
         container_name: ${APP_NAME:?err}-pma
         links:
-            - mariadb            
+            - mariadb
         environment:
             PMA_HOST: mariadb
             HIDE_PHP_VERSION: 1
