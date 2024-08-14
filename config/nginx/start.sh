@@ -7,10 +7,11 @@ cat /usr/share/zoneinfo/$TZ > /etc/localtime
 echo ""
 echo $TZ > /etc/timezone
 
-if [ -z "$(ls -A /etc/nginx)" ]; then
-	echo ""
-    echo "Initialing Nginx config dir"
+if [ -z "$(ls /etc/nginx)" ]; then
+    echo ""
+    echo "Initializing Nginx config dir"
     cp -rp /usr/etc/nginx/* /etc/nginx/
+    echo ""
     echo "Initialed Nginx config dir"
     echo ""
 fi
