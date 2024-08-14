@@ -1,35 +1,19 @@
-services:
-    php:
-        #image: lfsys/php:latest
-        # or
-        #image: lfsys/php74:latest
-        build:
-            context: ./config/php
-            args:
-                - "VPHP=${VERSION_PHP}"
-                - "TZ=${WORKSPACE_TIMEZONE}"
-            #dockerfile: php56.Dockerfile
-            # or
-            #dockerfile: php74.Dockerfile
-            dockerfile: php.Dockerfile
-        container_name: ${APP_NAME:?err}-php
-        hostname: contnr_php
-        #ports:
-        #    - '9001:9001'
-        environment:
-            - "TZ=${WORKSPACE_TIMEZONE}"
-            - "DBUP=${MARIADB_DATABASE}"
-            - "USERDB=${MARIADB_USER}"
-            - "UPWDB=${MARIADB_PASSWORD}"
-        volumes:
-            - ./app:/var/www/html
-            - ./config/php/php.ini:/etc/php${VERSION_PHP}/php.ini
-            - ./config/php/www.conf:/etc/php${VERSION_PHP}/php-fpm.d/www.conf
-            # If you need xdebug you can uncomment the line below.
-            #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
-        depends_on:
-            - mariadb
+networks:
+  netlfs:
+    name: netlfsys
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
 
+volumes:
+  phpmyadmin-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: app/pma
+
+services:
     nginx:
         #image: lfsys/nginx:latest
         build:
@@ -47,6 +31,9 @@ services:
             - ${NGXUI_PORT}:81
             - ${PMA_PORT}:9980
             - ${PMASSL_PORT}:9443
+        networks:
+            netlfs:
+                ipv4_address: 10.10.0.101
         links:
             - php
         environment:
@@ -64,6 +51,40 @@ services:
         depends_on:
             - mariadb
 
+    php:
+        #image: lfsys/php:latest
+        # or
+        #image: lfsys/php74:latest
+        build:
+            context: ./config/php
+            args:
+                - "VPHP=${VERSION_PHP}"
+                - "TZ=${WORKSPACE_TIMEZONE}"
+            #dockerfile: php56.Dockerfile
+            # or
+            #dockerfile: php74.Dockerfile
+            dockerfile: php.Dockerfile
+        container_name: ${APP_NAME:?err}-php
+        hostname: contnr_php
+        #ports:
+        #    - '9001:9001'
+        networks:
+            netlfs:
+                ipv4_address: 10.10.0.102
+        environment:
+            - "TZ=${WORKSPACE_TIMEZONE}"
+            - "DBUP=${MARIADB_DATABASE}"
+            - "USERDB=${MARIADB_USER}"
+            - "UPWDB=${MARIADB_PASSWORD}"
+        volumes:
+            - ./app:/var/www/html
+            - ./config/php/php.ini:/etc/php${VERSION_PHP}/php.ini
+            - ./config/php/www.conf:/etc/php${VERSION_PHP}/php-fpm.d/www.conf
+            # If you need xdebug you can uncomment the line below.
+            #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
+        depends_on:
+            - mariadb
+
     mariadb:
         image: mariadb:latest
         container_name: ${APP_NAME:?err}-mariadb
@@ -72,6 +93,9 @@ services:
         restart: 'on-failure'
         ports:
             - '3306:3306'
+        networks:
+            netlfs:
+                ipv4_address: 10.10.0.103
         environment:
             - "TZ=${WORKSPACE_TIMEZONE}"
             - "DBUP=${MARIADB_DATABASE}"
@@ -94,11 +118,13 @@ services:
         container_name: ${APP_NAME:?err}-pma
         links:
             - mariadb
+        networks:
+            - netlfs
         environment:
             PMA_HOST: mariadb
             HIDE_PHP_VERSION: 1
             UPLOAD_LIMIT: 4096M
         volumes:
-            - ./app/pma:/var/www/html/
+            - phpmyadmin-data:/var/www/html/
         depends_on:
             - mariadb
