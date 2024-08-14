@@ -5,14 +5,6 @@ networks:
       config:
         - subnet: 10.10.0.0/24
 
-volumes:
-  phpmyadmin-data:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: app/pma
-
 services:
     nginx:
         #image: lfsys/nginx:latest
@@ -105,6 +97,7 @@ services:
         volumes:
             - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
             - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
+            - ./app/pma:/pma
             - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
@@ -112,19 +105,3 @@ services:
             test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
             interval: 5s
             retries: 10
-
-    phpmyadmin:
-        image: phpmyadmin:fpm-alpine
-        container_name: ${APP_NAME:?err}-pma
-        links:
-            - mariadb
-        networks:
-            - netlfs
-        environment:
-            PMA_HOST: mariadb
-            HIDE_PHP_VERSION: 1
-            UPLOAD_LIMIT: 4096M
-        volumes:
-            - phpmyadmin-data:/var/www/html/
-        depends_on:
-            - mariadb
