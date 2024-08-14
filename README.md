@@ -19,7 +19,7 @@ MariaDB container and phpMyAdmin use the official DockerHub containers so if you
 
 ## Configuration
 
-The __NGINX__ configuration can be found in `config/nginx/`.
+The __NGINX__ configuration can be found in `data/nginx/`.
 
 The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
 You can create multiple virtualhost inside `data/nginx/sites-avaliable/` in separate files `.conf` if you want, after this, activate them from the nginx-ui dashboard through port 81 or by connecting to the container and creating static links to the files in the nginx sites-enabled folder..
