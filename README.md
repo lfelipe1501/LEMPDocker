@@ -26,9 +26,9 @@ You can create multiple virtualhost inside `data/nginx/sites-avaliable/` in sepa
 
 The __PHP__ configuration can be found in `config/php/`.
 
-You can set the desired php version from the .env file for the versions currently supported by the php group, for example 81 or 82
+You can set the desired php version from the .env file for the versions currently supported by the php group, for example 8, 81 or 82
 
-If you need an older version, for example 7.4 which is no longer supported or 5.6, you must set the version in the .env and also modify the `docker-compose.yml` file to set the dockerfile for the respective version which is located in the `config/php` folder where the extensions and alpine that supports the version are set.
+If you need an older version, for example 7.4 which is no longer supported, you must set the version in the .env and also modify the `docker-compose.yml` file to set the dockerfile for the respective version which is located in the `config/php` folder where the extensions and alpine that supports the version are set.
 
 The __MariaDB__ configuration file my.cnf can be found in `config/mariadb/`.
 
@@ -81,7 +81,7 @@ Where `{CONTAINER_NAME}` is one of:
 
 `docker restart {CONTAINER_NAME}`
 
-> example: `docker restart lfs-nginx`
+> example: `docker restart lfsys-nginx`
 
 ## Entering the containers
 
@@ -107,10 +107,10 @@ Stop the server using the following command inside the directory you just cloned
 
 [![Twitter](https://github.frapsoft.com/social/twitter.png)](https://twitter.com/lfelipe1501)
 [![Facebook](https://github.frapsoft.com/social/facebook.png)](https://www.facebook.com/lfelipe1501)
-[![Github](https://github.frapsoft.com/social/github.png)](https://github.com/lfelipe1501)
+[![Github](https://raw.githubusercontent.com/gauravghongde/social-icons/master/PNG/Color/Github.png)](https://github.com/lfelipe1501)
 
 ### Development by
 
-Developer / Author: [Luis Felipe Sánchez](https://github.com/lfelipe1501)
+Developer / Author: [Luis Felipe Sanchez](https://github.com/lfelipe1501)
 Company: [lfsystems](https://www.lfsystems.com.co)
 

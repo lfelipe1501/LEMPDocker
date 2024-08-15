@@ -52,8 +52,6 @@ services:
             args:
                 - "VPHP=${VERSION_PHP}"
                 - "TZ=${WORKSPACE_TIMEZONE}"
-            #dockerfile: php56.Dockerfile
-            # or
             #dockerfile: php74.Dockerfile
             dockerfile: php.Dockerfile
         container_name: ${APP_NAME:?err}-php
@@ -97,7 +95,6 @@ services:
         volumes:
             - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
             - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
-            - ./app/pma:/pma
             - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
             - /etc/passwd:/etc/passwd:ro
             - /etc/group:/etc/group:ro
