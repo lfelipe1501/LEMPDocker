@@ -107,7 +107,7 @@ Stop the server using the following command inside the directory you just cloned
 
 [![Twitter](https://github.frapsoft.com/social/twitter.png)](https://twitter.com/lfelipe1501)
 [![Facebook](https://github.frapsoft.com/social/facebook.png)](https://www.facebook.com/lfelipe1501)
-[![Github](https://raw.githubusercontent.com/gauravghongde/social-icons/master/PNG/Color/Github.png)](https://github.com/lfelipe1501)
+[![Github](lfelipe-projects/icons/filled/github.svg)](https://github.com/lfelipe1501)
 
 ### Development by
 
