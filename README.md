@@ -70,7 +70,7 @@ git clone https://github.com/lfelipe1501/LEMPDocker.git
 
 Start the server using the following command inside the directory you just cloned: `docker compose up -d`.
 
-*Remember to edit the variables in the .env file before starting the environment to adjust the formula to your preferences*
+*Remember to edit the variables in the `.env` file before starting the environment to adjust the formula to your preferences*
 
 ## Restart the containers
 
