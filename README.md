@@ -105,9 +105,9 @@ Stop the server using the following command inside the directory you just cloned
 
 *Get the latest News about Web Development, Open Source, Tooling, Server & Security*
 
-[![Twitter](https://github.frapsoft.com/social/twitter.png)](https://twitter.com/lfelipe1501)
-[![Facebook](https://github.frapsoft.com/social/facebook.png)](https://www.facebook.com/lfelipe1501)
-[![Github](lfelipe-projects/icons/filled/github.svg)](https://github.com/lfelipe1501)
+[![Twitter](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/twitter.svg)](https://twitter.com/lfelipe1501)
+[![Facebook](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/facebook.svg)](https://www.facebook.com/lfelipe1501)
+[![Github](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/github.svg)](https://github.com/lfelipe1501)
 
 ### Development by
 
