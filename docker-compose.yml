@@ -6,100 +6,100 @@ networks:
         - subnet: 10.10.0.0/24
 
 services:
-    nginx:
-        #image: lfsys/nginx:latest
-        build:
-            context: ./config/nginx
-            args:
-                - "ARCH_TYPE=${ARCH_TYPE}"
-                - "TZ=${WORKSPACE_TIMEZONE}"
-            dockerfile: ngx.Dockerfile
-        container_name: ${APP_NAME:?err}-nginx
-        hostname: contnr_nginx
-        restart: 'unless-stopped'
-        ports:
-            - '80:80'
-            - '443:443'
-            - ${NGXUI_PORT}:81
-            - ${PMA_PORT}:9980
-            - ${PMASSL_PORT}:9443
-        networks:
-            netlfs:
-                ipv4_address: 10.10.0.101
-        links:
-            - php
-        environment:
-            - "TZ=${WORKSPACE_TIMEZONE}"
-            - "PMAP=${PMA_PORT}"
-            - "PMAPS=${PMASSL_PORT}"
-            - "NGXUI=${NGXUI_PORT}"
-            - "DBUP=${MARIADB_DATABASE}"
-            - "USERDB=${MARIADB_USER}"
-            - "UPWDB=${MARIADB_PASSWORD}"
-        volumes:
-            - ./app:/var/www/html
-            - ${DATA_PATH_HOST}/nginx-ui:/etc/nginx-ui
-            - ${DATA_PATH_HOST}/nginx:/etc/nginx
-        depends_on:
-            - mariadb
+  nginx:
+    #image: lfsys/nginx:latest
+    build:
+      context: ./config/nginx
+      args:
+        - "ARCH_TYPE=${ARCH_TYPE}"
+        - "TZ=${WORKSPACE_TIMEZONE}"
+      dockerfile: ngx.Dockerfile
+    container_name: ${APP_NAME:?err}-nginx
+    hostname: contnr_nginx
+    restart: "unless-stopped"
+    ports:
+      - "80:80"
+      - "443:443"
+      - ${NGXUI_PORT}:81
+      - ${PMA_PORT}:9980
+      - ${PMASSL_PORT}:9443
+    networks:
+      netlfs:
+        ipv4_address: 10.10.0.101
+    links:
+      - php
+    environment:
+      - "TZ=${WORKSPACE_TIMEZONE}"
+      - "PMAP=${PMA_PORT}"
+      - "PMAPS=${PMASSL_PORT}"
+      - "NGXUI=${NGXUI_PORT}"
+      - "DBUP=${MARIADB_DATABASE}"
+      - "USERDB=${MARIADB_USER}"
+      - "UPWDB=${MARIADB_PASSWORD}"
+    volumes:
+      - ./app:/var/www/html
+      - ${DATA_PATH_HOST}/nginx-ui:/etc/nginx-ui
+      - ${DATA_PATH_HOST}/nginx:/etc/nginx
+    depends_on:
+      - mariadb
 
-    php:
-        #image: lfsys/php:latest
-        # or
-        #image: lfsys/php74:latest
-        build:
-            context: ./config/php
-            args:
-                - "VPHP=${VERSION_PHP}"
-                - "TZ=${WORKSPACE_TIMEZONE}"
-            #dockerfile: php74.Dockerfile
-            dockerfile: php.Dockerfile
-        container_name: ${APP_NAME:?err}-php
-        hostname: contnr_php
-        restart: 'unless-stopped'
-        #ports:
-        #    - '9001:9001'
-        networks:
-            netlfs:
-                ipv4_address: 10.10.0.102
-        environment:
-            - "TZ=${WORKSPACE_TIMEZONE}"
-            - "DBUP=${MARIADB_DATABASE}"
-            - "USERDB=${MARIADB_USER}"
-            - "UPWDB=${MARIADB_PASSWORD}"
-        volumes:
-            - ./app:/var/www/html
-            - ./config/php/php.ini:/etc/php${VERSION_PHP}/php.ini
-            - ./config/php/www.conf:/etc/php${VERSION_PHP}/php-fpm.d/www.conf
-            # If you need xdebug you can uncomment the line below.
-            #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
-        depends_on:
-            - mariadb
+  php:
+    #image: lfsys/php:latest
+    # or
+    #image: lfsys/php74:latest
+    build:
+      context: ./config/php
+      args:
+        - "VPHP=${VERSION_PHP}"
+        - "TZ=${WORKSPACE_TIMEZONE}"
+      #dockerfile: php74.Dockerfile
+      dockerfile: php.Dockerfile
+    container_name: ${APP_NAME:?err}-php
+    hostname: contnr_php
+    restart: "unless-stopped"
+    #ports:
+    #  - "9001:9001"
+    networks:
+      netlfs:
+        ipv4_address: 10.10.0.102
+    environment:
+      - "TZ=${WORKSPACE_TIMEZONE}"
+      - "DBUP=${MARIADB_DATABASE}"
+      - "USERDB=${MARIADB_USER}"
+      - "UPWDB=${MARIADB_PASSWORD}"
+    volumes:
+      - ./app:/var/www/html
+      - ./config/php/php.ini:/etc/php${VERSION_PHP}/php.ini
+      - ./config/php/www.conf:/etc/php${VERSION_PHP}/php-fpm.d/www.conf
+      # If you need xdebug you can uncomment the line below.
+      #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
+    depends_on:
+      - mariadb
 
-    mariadb:
-        image: mariadb:latest
-        container_name: ${APP_NAME:?err}-mariadb
-        hostname: contnr_db
-        user: "${USR}:${GRP}"
-        restart: 'unless-stopped'
-        ports:
-            - '3306:3306'
-        networks:
-            netlfs:
-                ipv4_address: 10.10.0.103
-        environment:
-            - "TZ=${WORKSPACE_TIMEZONE}"
-            - "DBUP=${MARIADB_DATABASE}"
-            - "USERDB=${MARIADB_USER}"
-            - "UPWDB=${MARIADB_PASSWORD}"
-            - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
-        volumes:
-            - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
-            - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
-            - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
-            - /etc/passwd:/etc/passwd:ro
-            - /etc/group:/etc/group:ro
-        healthcheck:
-            test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
-            interval: 5s
-            retries: 10
+  mariadb:
+    image: mariadb:latest
+    container_name: ${APP_NAME:?err}-mariadb
+    hostname: contnr_db
+    user: "${USR}:${GRP}"
+    restart: "unless-stopped"
+    ports:
+      - "3306:3306"
+    networks:
+      netlfs:
+        ipv4_address: 10.10.0.103
+    environment:
+      - "TZ=${WORKSPACE_TIMEZONE}"
+      - "DBUP=${MARIADB_DATABASE}"
+      - "USERDB=${MARIADB_USER}"
+      - "UPWDB=${MARIADB_PASSWORD}"
+      - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
+    volumes:
+      - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
+      - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
+      - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    healthcheck:
+      test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
+      interval: 5s
+      retries: 10

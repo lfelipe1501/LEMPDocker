@@ -20,7 +20,7 @@ RUN apk update && apk upgrade --available && sync\
     && apk add --no-cache nano bash wget nginx \
     tzdata zip unzip openssl nginx-mod-http-xslt-filter \
     vim curl nginx-mod-http-fancyindex \
-	&& NGINXUI_VERSION=$(curl -s https://api.github.com/repos/0xJacky/nginx-ui/releases/latest|grep tag_name | cut -d '"' -f 4|sed 's/v//g' | sed s/"release-"//)\
+    && NGINXUI_VERSION=$(curl -s https://api.github.com/repos/0xJacky/nginx-ui/releases/latest|grep tag_name | cut -d '"' -f 4|sed 's/v//g' | sed s/"release-"//)\
     && wget https://github.com/0xJacky/nginx-ui/releases/download/v${NGINXUI_VERSION}/nginx-ui-${ARCH_TYPE}.tar.gz\
     && tar -xvzf nginx-ui-${ARCH_TYPE}.tar.gz && rm -rf *.md && chmod 777 nginx-ui\
     && mv nginx-ui /bin && rm -rf nginx-ui-${ARCH_TYPE}.tar.gz && mkdir -p /etc/nginx-ui && ln -sf /etc/nginx-ui /app \
@@ -38,9 +38,9 @@ COPY app.ini /etc/nginx-ui/app.ini
 # Clear package lists
 RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && unzip -o /etc/nginx.zip -d /usr/etc/ \
-	&& cat /usr/share/zoneinfo/${TZ} > /etc/localtime \
+    && cat /usr/share/zoneinfo/${TZ} > /etc/localtime \
     && echo $TZ > /etc/timezone \
-	&& chown -R 1000:1000 /etc/nginx \
+    && chown -R 1000:1000 /etc/nginx \
     && chown -R 1000:1000 /usr/etc/nginx \
     && chown -R 1000:1000 /etc/nginx-ui \
     && chown -R 1000:1000 /var/run \
@@ -49,7 +49,7 @@ RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && chown -R 1000:1000 /var/log/nginx \
     && chown 1000:1000 /etc/localtime \
     && chown 1000:1000 /etc/timezone \
-	&& chown -R 1000:1000 /var/www \
+    && chown -R 1000:1000 /var/www \
     && chmod 777 /start.sh \
     && chown 1000:1000 /bin/nginx-ui \
     && chown 1000:1000 /start.sh

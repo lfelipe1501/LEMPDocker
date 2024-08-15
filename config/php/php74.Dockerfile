@@ -44,11 +44,11 @@ RUN mkdir -p /var/www/html\
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime\
     && echo $TZ > /etc/timezone\
     && chown -R 1000:1000 /var/www\
-	&& chown -R 1000:1000 /var/log\
+    && chown -R 1000:1000 /var/log\
     && chown 1000:1000 /etc/localtime\
     && chown 1000:1000 /etc/timezone\
     && chown 1000:1000 /start.sh\
-	&& chmod 777 /start.sh
+    && chmod 777 /start.sh
 
 EXPOSE 9000
 
