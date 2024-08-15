@@ -15,9 +15,6 @@ if [ -d /var/www/html/pma ]; then
 
   ## Download config for phpMyAdmin
   cd /var/www/html/pma && wget https://gist.githubusercontent.com/lfelipe1501/6ae9cadf1ca52ad4868a904207f70ce7/raw/276d7898848afea3cf475f3e96c6db6cb9c7b6e0/config.inc.php
-
-  ## Create DB and set User for phpMyAdmin
-  
   fi
 fi
 
