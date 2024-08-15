@@ -16,7 +16,7 @@ services:
             dockerfile: ngx.Dockerfile
         container_name: ${APP_NAME:?err}-nginx
         hostname: contnr_nginx
-        restart: 'on-failure'
+        restart: 'unless-stopped'
         ports:
             - '80:80'
             - '443:443'
@@ -56,6 +56,7 @@ services:
             dockerfile: php.Dockerfile
         container_name: ${APP_NAME:?err}-php
         hostname: contnr_php
+        restart: 'unless-stopped'
         #ports:
         #    - '9001:9001'
         networks:
@@ -79,8 +80,8 @@ services:
         image: mariadb:latest
         container_name: ${APP_NAME:?err}-mariadb
         hostname: contnr_db
-        user: "1000:1000"
-        restart: 'on-failure'
+        user: "${USR}:${GRP}"
+        restart: 'unless-stopped'
         ports:
             - '3306:3306'
         networks:
