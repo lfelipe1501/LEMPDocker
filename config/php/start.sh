@@ -14,7 +14,7 @@ if [ -d /var/www/html/pma ]; then
   cd /var/www/html/pma && wget -q https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip && unzip phpMyAdmin-latest-all-languages.zip && mv phpMyAdmin-*-all-languages/* . && rm -rf phpMyAdmin-*-all-languages phpMyAdmin-latest-all-languages.zip
 
   ## Download config for phpMyAdmin
-  cd /var/www/html/pma && wget https://gist.githubusercontent.com/lfelipe1501/6ae9cadf1ca52ad4868a904207f70ce7/raw/276d7898848afea3cf475f3e96c6db6cb9c7b6e0/config.inc.php
+  cd /var/www/html/pma && curl -L https://gist.github.com/lfelipe1501/6ae9cadf1ca52ad4868a904207f70ce7/raw/ -o config.inc.php
   fi
 fi
 
