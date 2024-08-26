@@ -7,7 +7,7 @@ This repository contains a little `docker compose` configuration to start a `LEM
 The following versions are used.
 
 * PHP latest avaliable (FPM) - With MySQLi driver
-* Nginx latest avaliable
+* Nginx latest avaliable with [NGINX-UI DASHBOARD](https://nginxui.com/)
 * MariaDB latest avaliable
 * phpMyAdmin Latest Version - Access with custom Port in .env
 
@@ -15,7 +15,9 @@ For the nginx and php containers, a Dockerfile is used for each one, where ALPIN
 
 The versions used in these containers are the latest available for each official package of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
 
-MariaDB container and phpMyAdmin use the official DockerHub containers so if you need something specific, you can use the official documentation of these containers and adjust it in the docker-compose.yml
+MariaDB container use the official DockerHub containers so if you need something specific, you can use the official documentation of these containers and adjust it in the docker-compose.yml
+
+The phpMyAdmin installation was created in the php container startup script as an optional feature, if you do not want it you must delete the pma folder located in app, otherwise the latest stable version available is always installed and you can edit the configuration in the pma folder located in app.
 
 ## Configuration
 
