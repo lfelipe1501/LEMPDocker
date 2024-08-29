@@ -16,5 +16,14 @@ if [ -z "$(ls /etc/nginx)" ]; then
     echo ""
 fi
 
+if [ -z "$(ls /etc/nginx-ui)" ]; then
+    echo ""
+    echo "Initializing UI config dir"
+    cp -rp /usr/etc/nginx-ui/* /etc/nginx-ui/
+    echo ""
+    echo "Initialed UI config dir"
+    echo ""
+fi
+
 nginx &
 nginx-ui --config /etc/nginx-ui/app.ini

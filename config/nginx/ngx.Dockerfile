@@ -38,6 +38,8 @@ COPY app.ini /etc/nginx-ui/app.ini
 # Clear package lists
 RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && unzip -o /etc/nginx.zip -d /usr/etc/ \
+    && mkdir -p /usr/etc/nginx-ui \
+    && cp /etc/nginx-ui/app.ini /usr/etc/nginx-ui/ \
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime \
     && echo $TZ > /etc/timezone \
     && chown -R 1000:1000 /etc/nginx \
@@ -50,7 +52,8 @@ RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && chown -R 1000:1000 /var/cache \
     && chown -R 1000:1000 /var/log/nginx \
     && rm -rf /var/log/nginx \
-	&& ln -sf /var/www/html/logs /var/log/nginx \
+    && ln -sf /var/www/html/logs /var/log/nginx \
+    && chown -h 1000:1000 /var/log/nginx \
     && chown 1000:1000 /etc/localtime \
     && chown 1000:1000 /etc/timezone \
     && chown -R 1000:1000 /var/www \
