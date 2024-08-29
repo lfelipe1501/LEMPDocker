@@ -43,7 +43,7 @@ RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime \
     && echo $TZ > /etc/timezone \
     && chown -R 1000:1000 /etc/nginx \
-    && chown -R 1000:1000 /usr/etc/nginx \
+    && chown -R 1000:1000 /usr/etc/nginx* \
     && chown -R 1000:1000 /etc/nginx-ui \
     && chown -R 1000:1000 /var/run \
     && chmod -R 777 /var/run \
