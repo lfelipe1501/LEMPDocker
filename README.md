@@ -55,7 +55,7 @@ You can also set the following environment variables, for example in the include
 |MARIADB_PASSWORD|The MySQL normal user password used when creating the db container.|
 |DATA_PATH_HOST|The path used when creating a db container to store the database data in a way accessible to the host server.|
 
-> [!NOTE]
+> [!IMPORTANT]
 >
 > **For WSL users**: If it is run in a windows dockerized environment with WLS2,
 > it is NOT recommended to run on the windows desktop or in your windows system example: `/mnt/c/Users/lfelipe/Desktop/LEMPDocker/`,
