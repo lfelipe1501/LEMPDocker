@@ -11,7 +11,9 @@ echo $TZ > /etc/timezone
 if [ -d /var/www/html/pma ]; then
   if [ -z "$(ls /var/www/html/pma)" ]; then
   ## Download phpMyAdmin
-  cd /var/www/html/pma && wget -q https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip && unzip phpMyAdmin-latest-all-languages.zip && mv phpMyAdmin-*-all-languages/* . && rm -rf phpMyAdmin-*-all-languages phpMyAdmin-latest-all-languages.zip
+  cd /var/www/html/pma && wget -q https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip\
+  && unzip phpMyAdmin-latest-all-languages.zip && mv phpMyAdmin-*-all-languages/* .\
+  && rm -rf phpMyAdmin-*-all-languages phpMyAdmin-latest-all-languages.zip
 
   ## Download config for phpMyAdmin
   cd /var/www/html/pma && curl -L https://gist.github.com/lfelipe1501/6ae9cadf1ca52ad4868a904207f70ce7/raw/ -o config.inc.php
