@@ -56,7 +56,6 @@ You can also set the following environment variables, for example in the include
 |DATA_PATH_HOST|The path used when creating a db container to store the database data in a way accessible to the host server.|
 
 > [!CAUTION]
->
 > _**For WSL users**: If it is run in a windows dockerized environment with WLS2,
 > it is NOT recommended to run on the windows desktop or in your windows system example: `/mnt/c/Users/lfelipe/Desktop/LEMPDocker/`,
 > the good way is copy or clone the project inside the linux wls2 system preferably in the `HOME` folder of your user,
