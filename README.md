@@ -73,11 +73,16 @@ Clone this repository with the following command:
 git clone https://github.com/lfelipe1501/LEMPDocker.git
 ```
 
-##### Start the server.
+#### Start the server.
 
-Start the server using the following command inside the directory you just cloned: `docker compose up -d`.
+> [!important]
+> _**BEFORE RUNNING** the project you **MUST** edit the variables in the `.env` file
+> before starting the environment to adjust the formula to your preferences_
 
-*Remember to edit the variables in the `.env` file before starting the environment to adjust the formula to your preferences*
+Start the server using the following command inside the directory you just cloned:
+```console
+docker compose up -d
+```
 
 ## Restart the containers
 
@@ -106,9 +111,12 @@ Where `{CONTAINER_NAME}` is one of:
 
 > example: `docker exec -ti lfsys-php bash`
 
-##### Stop the server.
+#### Stop the server.
 
-Stop the server using the following command inside the directory you just cloned: `docker compose down`.
+Stop the server using the following command inside the directory you just cloned:
+```console
+docker compose down
+```
 
 ### Contact / Social Media
 
