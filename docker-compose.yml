@@ -12,6 +12,8 @@ services:
       context: ./config/nginx
       args:
         - "ARCH_TYPE=${ARCH_TYPE}"
+        - "USR_ID=${USR}"
+        - "GRP_ID=${GRP}"
         - "TZ=${WORKSPACE_TIMEZONE}"
       dockerfile: ngx.Dockerfile
     container_name: ${APP_NAME:?err}-nginx
@@ -51,6 +53,8 @@ services:
       context: ./config/php
       args:
         - "VPHP=${VERSION_PHP}"
+        - "USR_ID=${USR}"
+        - "GRP_ID=${GRP}"
         - "TZ=${WORKSPACE_TIMEZONE}"
       #dockerfile: php74.Dockerfile
       dockerfile: php.Dockerfile

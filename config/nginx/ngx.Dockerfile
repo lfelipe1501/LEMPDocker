@@ -6,14 +6,18 @@ LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 ARG TZ
 
 # Set Variables
-ARG ARCH_TYPE
+ARG ARCH_TYPE\
+    USR_ID\
+    GRP_ID
 ENV TZ=${TZ}\
-    ARCH_TYPE=${ARCH_TYPE}
+    ARCH_TYPE=${ARCH_TYPE}\
+    USR_ID=${USR_ID}\
+    GRP_ID=${GRP_ID}
 
 # Create user to protect container
-RUN addgroup -g 1000 nginx\
+RUN addgroup -g $GRP_ID nginx\
     && adduser nginx --shell /sbin/nologin\
-    --disabled-password --uid 1000 --ingroup nginx
+    --disabled-password --uid $USR_ID --ingroup nginx
 
 # Install php and prepare
 RUN apk update && apk upgrade --available && sync\
@@ -42,24 +46,24 @@ RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
     && cp /etc/nginx-ui/app.ini /usr/etc/nginx-ui/ \
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime \
     && echo $TZ > /etc/timezone \
-    && chown -R 1000:1000 /etc/nginx \
-    && chown -R 1000:1000 /usr/etc/nginx* \
-    && chown -R 1000:1000 /etc/nginx-ui \
-    && chown -R 1000:1000 /var/run \
+    && chown -R $USR_ID:$GRP_ID /etc/nginx \
+    && chown -R $USR_ID:$GRP_ID /usr/etc/nginx* \
+    && chown -R $USR_ID:$GRP_ID /etc/nginx-ui \
+    && chown -R $USR_ID:$GRP_ID /var/run \
     && chmod -R 777 /var/run \
     && chmod -R 777 /run \
-    && chown -R 1000:1000 /run \
-    && chown -R 1000:1000 /var/cache \
-    && chown -R 1000:1000 /var/log/nginx \
+    && chown -R $USR_ID:$GRP_ID /run \
+    && chown -R $USR_ID:$GRP_ID /var/cache \
+    && chown -R $USR_ID:$GRP_ID /var/log/nginx \
     && rm -rf /var/log/nginx \
     && ln -sf /var/www/html/logs /var/log/nginx \
-    && chown -h 1000:1000 /var/log/nginx \
-    && chown 1000:1000 /etc/localtime \
-    && chown 1000:1000 /etc/timezone \
-    && chown -R 1000:1000 /var/www \
+    && chown -h $USR_ID:$GRP_ID /var/log/nginx \
+    && chown $USR_ID:$GRP_ID /etc/localtime \
+    && chown $USR_ID:$GRP_ID /etc/timezone \
+    && chown -R $USR_ID:$GRP_ID /var/www \
     && chmod 777 /start.sh \
-    && chown 1000:1000 /bin/nginx-ui \
-    && chown 1000:1000 /start.sh
+    && chown $USR_ID:$GRP_ID /bin/nginx-ui \
+    && chown $USR_ID:$GRP_ID /start.sh
 
 EXPOSE 80 81 443 9000
 

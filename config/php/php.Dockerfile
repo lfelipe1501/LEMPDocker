@@ -6,14 +6,18 @@ LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 ARG TZ
 
 # Set Variables
-ARG VPHP
+ARG VPHP\
+    USR_ID\
+    GRP_ID
 ENV TZ=${TZ}\
-    VPHP=${VPHP}
+    VPHP=${VPHP}\
+    USR_ID=${USR_ID}\
+    GRP_ID=${GRP_ID}
 
 # Create user to protect container
-RUN addgroup -g 1000 phpusr\
+RUN addgroup -g $GRP_ID phpusr\
     && adduser phpusr --shell /sbin/nologin\
-    --disabled-password --uid 1000 --ingroup phpusr
+    --disabled-password --uid $USR_ID --ingroup phpusr
 
 # Install php and prepare
 RUN apk update && apk upgrade --available && sync\
@@ -46,11 +50,11 @@ COPY start.sh /start.sh
 RUN mkdir -p /var/www/html\
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime\
     && echo $TZ > /etc/timezone\
-    && chown -R 1000:1000 /var/www\
-    && chown -R 1000:1000 /var/log\
-    && chown 1000:1000 /etc/localtime\
-    && chown 1000:1000 /etc/timezone\
-    && chown 1000:1000 /start.sh\
+    && chown -R $USR_ID:$GRP_ID /var/www\
+    && chown -R $USR_ID:$GRP_ID /var/log\
+    && chown $USR_ID:$GRP_ID /etc/localtime\
+    && chown $USR_ID:$GRP_ID /etc/timezone\
+    && chown $USR_ID:$GRP_ID /start.sh\
     && chmod 777 /start.sh
 
 EXPOSE 9000
