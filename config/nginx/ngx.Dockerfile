@@ -21,9 +21,9 @@ RUN addgroup -g $GRP_ID nginx\
 
 # Install php and prepare
 RUN apk update && apk upgrade --available && sync\
-    && apk add --no-cache nano bash wget nginx \
-    tzdata zip unzip openssl nginx-mod-http-xslt-filter \
-    vim curl nginx-mod-http-fancyindex \
+    && apk add --no-cache nano bash wget nginx openrc\
+    tzdata zip unzip openssl nginx-mod-http-xslt-filter\
+    vim curl nginx-mod-http-fancyindex\
     && NGINXUI_VERSION=$(curl -s https://api.github.com/repos/0xJacky/nginx-ui/releases/latest|grep tag_name | cut -d '"' -f 4|sed 's/v//g' | sed s/"release-"//)\
     && wget https://github.com/0xJacky/nginx-ui/releases/download/v${NGINXUI_VERSION}/nginx-ui-${ARCH_TYPE}.tar.gz\
     && tar -xvzf nginx-ui-${ARCH_TYPE}.tar.gz && rm -rf *.md && chmod 777 nginx-ui\
