@@ -23,8 +23,8 @@ RUN addgroup -g $GRP_ID phpusr\
 RUN apk update && apk upgrade --available && sync\
     && apk add --no-cache nano bash vim curl wget sqlite\
     tzdata zip unzip openssl busybox-extras linux-headers\
-    php${VPHP} php${VPHP}-fpm php${VPHP}-opcache php${VPHP}-pecl-xdebug\
-    php${VPHP}-zlib php${VPHP}-curl php${VPHP}-session php${VPHP}-json\
+    php${VPHP} php${VPHP}-fpm php${VPHP}-opcache php${VPHP}-pecl-xdebug php${VPHP}-simplexml\
+    php${VPHP}-zlib php${VPHP}-curl php${VPHP}-session php${VPHP}-json php${VPHP}-xmlreader\
     php${VPHP}-gd php${VPHP}-exif php${VPHP}-zip php${VPHP}-mysqli supervisor\
     php${VPHP}-pdo php${VPHP}-iconv php${VPHP}-fileinfo php${VPHP}-xml php${VPHP}-mcrypt\
     php${VPHP}-common php${VPHP}-intl php${VPHP}-bcmath php${VPHP}-dom php${VPHP}-mbstring\
