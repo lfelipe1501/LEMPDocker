@@ -14,9 +14,20 @@ ENV TZ=${TZ}\
     GRP_ID=${GRP_ID}
 
 # Create user to protect container
-RUN addgroup -g $GRP_ID phpusr\
-    && adduser phpusr --shell /sbin/nologin\
-    --disabled-password --uid $USR_ID --ingroup phpusr
+RUN if getent group ${GRP_ID} > /dev/null 2>&1; then \
+        GROUP_NAME=$(getent group ${GRP_ID} | cut -d: -f1); \
+        echo "Group with ID ${GRP_ID} already exists as ${GROUP_NAME}, using it"; \
+    else \
+        echo "Creating new group phpusr with ID ${GRP_ID}"; \
+        addgroup -g ${GRP_ID} phpusr; \
+    fi \
+    && if getent group ${GRP_ID} > /dev/null 2>&1; then \
+        GROUP_NAME=$(getent group ${GRP_ID} | cut -d: -f1); \
+        adduser phpusr --shell /sbin/nologin --disabled-password --uid ${USR_ID} --ingroup ${GROUP_NAME}; \
+    else \
+        echo "Error: Group with ID ${GRP_ID} not found. This should not happen."; \
+        exit 1; \
+    fi
 
 # Install php and prepare
 RUN apk update && apk upgrade --available && sync\
@@ -49,11 +60,12 @@ COPY start.sh /start.sh
 RUN mkdir -p /var/www/html\
     && cat /usr/share/zoneinfo/${TZ} > /etc/localtime\
     && echo $TZ > /etc/timezone\
-    && chown -R $USR_ID:$GRP_ID /var/www\
-    && chown -R $USR_ID:$GRP_ID /var/log\
-    && chown $USR_ID:$GRP_ID /etc/localtime\
-    && chown $USR_ID:$GRP_ID /etc/timezone\
-    && chown $USR_ID:$GRP_ID /start.sh\
+    && GROUP_NAME=$(getent group ${GRP_ID} | cut -d: -f1) \
+    && chown -R ${USR_ID}:${GROUP_NAME} /var/www\
+    && chown -R ${USR_ID}:${GROUP_NAME} /var/log\
+    && chown ${USR_ID}:${GROUP_NAME} /etc/localtime\
+    && chown ${USR_ID}:${GROUP_NAME} /etc/timezone\
+    && chown ${USR_ID}:${GROUP_NAME} /start.sh\
     && chmod 777 /start.sh
 
 EXPOSE 9000

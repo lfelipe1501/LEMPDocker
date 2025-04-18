@@ -2,11 +2,9 @@ FROM alpine:3.15
 
 LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 
-## Set Timezone
-ARG TZ
-
 # Set Variables
-ARG VPHP\
+ARG TZ\
+    VPHP\
     USR_ID\
     GRP_ID
 ENV TZ=${TZ}\
@@ -35,6 +33,7 @@ RUN apk update && apk upgrade --available && sync\
     && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*\
     && rm -rf /tmp/{.}* /tmp/*\
     && rm -rf /var/cache/apk/*
+
 # Installing composer
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php\
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer\
