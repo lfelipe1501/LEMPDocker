@@ -1,70 +1,73 @@
 # Docker Compose LEMP stack
 
-This repository contains a little `docker compose` configuration to start a `LEMP (Linux, Nginx, MariaDB, PHP)` stack.
+This repository contains a `docker compose` configuration to start a `LEMP (Linux, Nginx, MariaDB, PHP)` stack.
 
 ## Details
 
-The following versions are used.
+The following versions are used:
 
-* PHP latest avaliable (FPM) - With MySQLi driver
-* Nginx latest avaliable with [NGINX-UI DASHBOARD](https://nginxui.com/)
-* MariaDB latest avaliable
-* phpMyAdmin Latest Version - Access with custom Port in .env
+* PHP latest available version (FPM) - With MySQLi driver
+* Nginx latest available version with [NGINX-UI DASHBOARD](https://nginxui.com/)
+* MariaDB latest available version with SSL support
+* phpMyAdmin latest version - Access with customized port in .env
 
-For the nginx and php containers, a Dockerfile is used for each one, where ALPINE is used as a base image and is adjusted according to the best security and configuration practices for each of these two services.
+For the Nginx and PHP containers, a Dockerfile is used for each one, based on ALPINE as the base image and adjusted according to security best practices and configuration for each of these services.
 
-The versions used in these containers are the latest available for each official package of the indicated service, if you want to use a different or specific version you can edit the dockerfile files of each container in the `config` folder or if you want to add new commands within each container, extensions, services, etc., you can edit each dockerfile of each of them to customize it according to your needs.
+The versions used in these containers are the latest available for each official package of the indicated service. If you want to use a different or specific version, you can edit the Dockerfile of each container in the `config` folder, or if you want to add new commands inside each container, extensions, services, etc., you can edit each Dockerfile to customize it according to your needs.
 
-MariaDB container use the official DockerHub containers so if you need something specific, you can use the official documentation of these containers and adjust it in the docker-compose.yml
+For the MariaDB container, a custom Dockerfile is used, with the base image adjusted according to security best practices and optimized configuration.
 
-The phpMyAdmin installation was created in the php container startup script as an optional feature, if you do not want it you must delete the pma folder located in app, otherwise the latest stable version available is always installed and you can edit the configuration in the pma folder located in app.
+The phpMyAdmin installation is created in the startup script of the PHP container as an optional feature. If you don't want it, you should remove the `pma` folder located in the app folder; otherwise, the latest stable version available is always installed and you can edit the configuration in the pma folder located in app.
 
 ## Configuration
 
-The __NGINX__ configuration can be found in `data/nginx/`.
+The __NGINX__ configuration is in `data/nginx/`.
 
-The `app` folder is a static path and you can upload the files of your applications in real time to be deployed and displayed by the nginx and php service.
-You can create multiple virtualhost inside `data/nginx/sites-avaliable/` in separate files `.conf` if you want, after this, activate them from the nginx-ui dashboard through port 81 or by connecting to the container and creating static links to the files in the nginx sites-enabled folder..
+The `app` folder is a static path and you can upload your application files in real-time to be deployed and displayed by the Nginx and PHP services.
+You can create multiple virtualhosts within `data/nginx/sites-available/` in separate `.conf` files if desired. After this, activate them from the Nginx-UI dashboard through port 81 or by connecting to the container and creating symbolic links to the files in the Nginx sites-enabled folder.
 
-The __PHP__ configuration can be found in `config/php/`.
+The __PHP__ configuration is in `config/php/`.
 
-You can set the desired php version from the .env file for the versions currently supported by the php group, for example 8, 81, 82 or 83
+You can set the desired PHP version from the .env file for the versions currently supported by the PHP group, for example 82, 83, or 84.
 
-If you need an older version, for example 7.4 which is no longer supported, you must set the version in the .env and also modify the `docker-compose.yml` file to set the dockerfile for the respective version which is located in the `config/php` folder where the extensions and alpine that supports the version are set.
+If you need an older version, for example 7.4 which is no longer supported, you must set the version in the .env file and also modify the `compose.yml` file to set the Dockerfile for the respective version found in the `config/php` folder, where the extensions and Alpine that support that version are established.
 
-The __MariaDB__ configuration file my.cnf can be found in `config/mariadb/`.
+The __MARIADB__ configuration is in `config/mariadb/`.
 
-The __phpMyAdmin__ configuration can be found in `app/pma/config.inc.php`.
+The __MariaDB__ configuration file my.cnf is in `config/mariadb/`.
 
-You can also set the following environment variables, for example in the included `.env` file:
+The __phpMyAdmin__ configuration is in `app/pma/config.inc.php`.
+
+You can also set the following environment variables in the included `.env` file:
 
 | Key | Description |
 |-----|-------------|
 |APP_NAME|The name used when creating a container.|
-|USR|Set User ID for mariadb container o for any container.|
-|GRP|Set Group ID for mariadb container o for any container.|
-|ARCH_TYPE|Set the architecture of the nginx-ui package (x86_64 or arm).|
-|NGXUI_PORT|Set nginx-ui port for Access.|
-|WORKSPACE_TIMEZONE|The timezone used when creating a db container.|
-|PMA_PORT|The phpMyAdmin port for access.|
-|PMASSL_PORT|The phpMyAdmin port for SSL access.|
-|VERSION_PHP|Version for the php container.|
-|MYSQL_ROOT_PASSWORD|The MySQL root password used when creating the db container.|
-|MARIADB_DATABASE|The MySQL database used when creating the db container.|
-|MARIADB_USER|The MySQL user other than root used when creating the db container.|
-|MARIADB_PASSWORD|The MySQL normal user password used when creating the db container.|
-|DATA_PATH_HOST|The path used when creating a db container to store the database data in a way accessible to the host server.|
+|USR|Set user ID for the MariaDB container or for any container.|
+|GRP|Set group ID for the MariaDB container or for any container.|
+|ARCH_TYPE|Set the architecture for the Nginx-UI package (x86_64 or arm).|
+|NGXUI_PORT|Set the access port for Nginx-UI.|
+|WORKSPACE_TIMEZONE|The timezone used when creating a database container.|
+|PMA_PORT|The access port for phpMyAdmin.|
+|PMASSL_PORT|The SSL access port for phpMyAdmin.|
+|VERSION_PHP|Version for the PHP container.|
+|MYSQL_ROOT_PASSWORD|The MySQL root password used when creating the database container.|
+|MARIADB_DATABASE|The MySQL database used when creating the database container.|
+|MARIADB_USER|The MySQL user other than root used when creating the database container.|
+|MARIADB_PASSWORD|The normal MySQL user password used when creating the database container.|
+|MARIADB_PORT|The port to access MariaDB from the host.|
+|DATA_PATH_HOST|The path used when creating a database container to store the database data in a way that is accessible to the host server.|
 
 > [!CAUTION]
-> _**For WSL users**: If it is run in a windows dockerized environment with WLS2,
-> it is NOT recommended to run on the windows desktop or in your windows system example: `/mnt/c/Users/lfelipe/Desktop/LEMPDocker/`,
-> the good way is copy or clone the project inside the linux wls2 system preferably in the `HOME` folder of your user,
-> because windows has problems with the partitions mounted within the linux subsystem example: `/mnt/c/Users/lfelipe/Desktop`
-> it is a bad path and can lead to problems with docker_
+> _**For WSL users**: If running in a Windows dockerized environment with WLS2,
+> it is NOT recommended to run it on the Windows desktop or Windows system, for example: `/mnt/c/Users/lfelipe/Desktop/LEMPDocker/`,
+> best practice is to copy or clone the project inside the WLS2 Linux system, preferably in the `HOME` folder of your user,
+> because Windows has issues with mounted partitions inside the Linux subsystem, for example: `/mnt/c/Users/lfelipe/Desktop`
+> is a poor path and can cause problems with docker._
 
 ## Usage
 
-To use it, simply follow the following steps:
+To use it, simply follow these steps:
 
 ##### Clone this repository.
 
@@ -76,30 +79,31 @@ git clone https://github.com/lfelipe1501/LEMPDocker.git
 #### Start the server.
 
 > [!important]
-> _**BEFORE RUNNING** the project you **MUST** edit the variables in the `.env` file
-> before starting the environment to adjust the formula to your preferences_
+> _**BEFORE RUNNING** the project, **YOU MUST** edit the variables in the `.env` file
+> before starting the environment to adjust the configuration according to your preferences._
 
 Start the server using the following command inside the directory you just cloned:
 ```console
 docker compose up -d
 ```
 
-## Restart the containers
+## Restart containers
 
-If you make changes to the php and nginx config files (ini, conf, etc) you must restart each container to apply these changes, with the respective commands:
+If you make changes to the PHP and Nginx configuration files (ini, conf, etc.), you need to restart each container to apply these changes, with the respective commands:
 
 Where `{CONTAINER_NAME}` is one of:
 
 * `{APP_NAME}-php`
 * `{APP_NAME}-nginx`
+* `{APP_NAME}-mariadb`
 
 `docker restart {CONTAINER_NAME}`
 
 > example: `docker restart lfsys-nginx`
 
-## Entering the containers
+## Access the containers
 
-You can use the following command to enter a container:
+You can use the following command to access a container:
 
 Where `{CONTAINER_NAME}` is one of:
 
@@ -113,20 +117,20 @@ Where `{CONTAINER_NAME}` is one of:
 
 #### Stop the server.
 
-Stop the server using the following command inside the directory you just cloned:
+Stop the server using the following command inside the directory you cloned:
 ```console
 docker compose down
 ```
 
 ### Contact / Social Media
 
-*Get the latest News about Web Development, Open Source, Tooling, Server & Security*
+*Get the latest news about Web Development, Open Source, Tools, Servers, and Security*
 
 [![Twitter](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/twitter.svg)](https://twitter.com/lfelipe1501)
 [![Facebook](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/facebook.svg)](https://www.facebook.com/lfelipe1501)
 [![Github](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/icons/filled/github.svg)](https://github.com/lfelipe1501)
 
-### Development by
+### Developed by
 
 Developer / Author: [Luis Felipe Sanchez](https://github.com/lfelipe1501)
 Company: [lfsystems](https://www.lfsystems.com.co)
