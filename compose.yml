@@ -62,7 +62,7 @@ services:
     hostname: contnr_php
     restart: "unless-stopped"
     #ports:
-    #  - "9001:9001"
+    #  - "9000:9000"
     networks:
       netlfs:
         ipv4_address: 10.10.0.102
@@ -75,19 +75,26 @@ services:
       - ./app:/var/www/html
       - ./config/php/php.ini:/etc/php${VERSION_PHP}/php.ini
       - ./config/php/www.conf:/etc/php${VERSION_PHP}/php-fpm.d/www.conf
+      - ./config/mariadb/ssl:/etc/mysql/ssl
       # If you need xdebug you can uncomment the line below.
       #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
     depends_on:
       - mariadb
 
   mariadb:
-    image: mariadb:latest
+    #image: mariadb:latest
+    build:
+      context: ./config/mariadb
+      args:
+        - "USR_ID=${USR}"
+        - "GRP_ID=${GRP}"
+      dockerfile: mdb.Dockerfile
+    user: "${USR}:${GRP}"
     container_name: ${APP_NAME:?err}-mariadb
     hostname: contnr_db
-    user: "${USR}:${GRP}"
     restart: "unless-stopped"
     ports:
-      - "3306:3306"
+      - "${MARIADB_PORT}:3306"
     networks:
       netlfs:
         ipv4_address: 10.10.0.103
@@ -97,12 +104,12 @@ services:
       - "USERDB=${MARIADB_USER}"
       - "UPWDB=${MARIADB_PASSWORD}"
       - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
+      - "MARIADB_AUTO_UPGRADE=True"
     volumes:
       - ${DATA_PATH_HOST}/setup.sh:/docker-entrypoint-initdb.d/setup.sh
       - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
-      - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
+      - ./config/mariadb/my.cnf:/etc/mysql/my.cnf
+      - ./config/mariadb/ssl:/etc/mysql/ssl
     healthcheck:
       test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
       interval: 5s

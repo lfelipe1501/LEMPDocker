@@ -2,13 +2,12 @@ FROM alpine:latest
 
 LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 
-## Set Timezone
-ARG TZ
-
 # Set Variables
-ARG VPHP\
+ARG TZ\
+    VPHP\
     USR_ID\
     GRP_ID
+
 ENV TZ=${TZ}\
     VPHP=${VPHP}\
     USR_ID=${USR_ID}\
@@ -60,7 +59,7 @@ RUN mkdir -p /var/www/html\
 EXPOSE 9000
 
 USER phpusr
-WORKDIR /var/www/html/
+WORKDIR /var/www/html
 
 # Run the application
 CMD ["/start.sh"]

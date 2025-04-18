@@ -2,11 +2,9 @@ FROM alpine:latest
 
 LABEL maintainer="Luis Felipe Sanchez <lfelipe1501@gmail.com>"
 
-## Set Timezone
-ARG TZ
-
 # Set Variables
-ARG ARCH_TYPE\
+ARG TZ\
+    ARCH_TYPE\
     USR_ID\
     GRP_ID
 ENV TZ=${TZ}\
@@ -68,7 +66,7 @@ RUN rm -rf /etc/nginx && unzip -o /etc/nginx.zip -d /etc/ \
 EXPOSE 80 81 443 9000
 
 USER nginx
-WORKDIR /app
+WORKDIR /var/www/html
 
 # Run the application
 CMD ["/start.sh"]
