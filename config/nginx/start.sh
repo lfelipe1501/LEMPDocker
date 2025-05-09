@@ -25,5 +25,5 @@ if [ -z "$(ls /etc/nginx-ui)" ]; then
     echo ""
 fi
 
-nginx &
-nginx-ui --config /etc/nginx-ui/app.ini
+nginx -g "daemon off;" &
+cd /etc/nginx-ui && nginx-ui --config app.ini
