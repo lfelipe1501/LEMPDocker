@@ -101,4 +101,3 @@ function initializeDatabase() {
 
 // Initialize the database
 $databaseInitialized = initializeDatabase();
-?> 

@@ -3,8 +3,10 @@
 require_once '../config/config.php';
 require_once '../models/TestContent.php';
 
-// Include header
-include_once '../includes/header.php';
+// Start session for flash messages
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if ID is provided
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -25,7 +27,7 @@ if (!$testContent) {
     exit;
 }
 
-// Process form submission
+// Process form submission BEFORE any output
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mensaje = isset($_POST['mensaje']) ? trim($_POST['mensaje']) : '';
     $nulo = isset($_POST['nulo']) && !empty($_POST['nulo']) ? trim($_POST['nulo']) : null;
@@ -54,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+// Include header AFTER processing (so redirects work)
+include_once '../includes/header.php';
 ?>
 
 <!-- Main Content -->
