@@ -33,7 +33,7 @@ RUN if getent group ${GRP_ID} > /dev/null 2>&1; then \
 RUN apk update && apk upgrade --available && sync\
     && apk add --no-cache nano bash vim curl wget sqlite\
     tzdata zip unzip openssl busybox-extras linux-headers\
-    php${VPHP} php${VPHP}-fpm php${VPHP}-opcache php${VPHP}-pecl-xdebug\
+    php${VPHP} php${VPHP}-fpm php${VPHP}-pecl-xdebug ghostscript\
     php${VPHP}-zlib php${VPHP}-curl php${VPHP}-session php${VPHP}-json\
     php${VPHP}-gd php${VPHP}-exif php${VPHP}-zip php${VPHP}-mysqli supervisor\
     php${VPHP}-pdo php${VPHP}-iconv php${VPHP}-fileinfo php${VPHP}-xml\
@@ -42,7 +42,7 @@ RUN apk update && apk upgrade --available && sync\
     php${VPHP}-soap php${VPHP}-sockets php${VPHP}-tidy php${VPHP}-pecl-imagick\
     php${VPHP}-pgsql php${VPHP}-sodium php${VPHP}-tokenizer php${VPHP}-xmlreader\
     php${VPHP}-pdo_pgsql php${VPHP}-simplexml php${VPHP}-mbstring\
-    php${VPHP}-pear php${VPHP}-dev gcc musl-dev make ghostscript-fonts ghostscript\
+    php${VPHP}-pear php${VPHP}-dev gcc musl-dev make ghostscript-fonts\
     && ln -sf /usr/bin/php${VPHP} /usr/bin/php\
     && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*\
     && rm -rf /tmp/{.}* /tmp/*\
