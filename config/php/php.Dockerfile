@@ -75,4 +75,3 @@ WORKDIR /var/www/html
 
 # Run the application
 CMD ["/start.sh"]
-

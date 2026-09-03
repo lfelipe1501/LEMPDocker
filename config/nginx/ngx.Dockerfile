@@ -28,7 +28,7 @@ RUN if getent group ${GRP_ID} > /dev/null 2>&1; then \
         exit 1; \
     fi
 
-# Install php and prepare
+# Prepare container
 RUN apk update && apk upgrade --available && sync\
     && apk add --no-cache nano bash wget nginx openrc\
     tzdata zip unzip openssl nginx-mod-http-xslt-filter\

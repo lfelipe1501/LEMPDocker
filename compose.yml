@@ -47,8 +47,6 @@ services:
 
   php:
     #image: lfsys/php:latest
-    # or
-    #image: lfsys/php74:latest
     build:
       context: ./config/php
       args:
