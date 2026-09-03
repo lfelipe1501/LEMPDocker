@@ -5,6 +5,12 @@ networks:
       config:
         - subnet: 10.10.0.0/24
 
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   nginx:
     #image: lfsys/nginx:latest
@@ -18,6 +24,8 @@ services:
       dockerfile: ngx.Dockerfile
     container_name: ${APP_NAME:?err}-nginx
     hostname: contnr_nginx
+    logging: *default-logging
+    shm_size: '728mb'
     restart: "unless-stopped"
     ports:
       - "80:80"
@@ -42,6 +50,14 @@ services:
       - ./app:/var/www/html
       - ${DATA_PATH_HOST}/nginx-ui:/etc/nginx-ui
       - ${DATA_PATH_HOST}/nginx:/etc/nginx
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5
     depends_on:
       - mariadb
 
@@ -58,6 +74,8 @@ services:
       dockerfile: php.Dockerfile
     container_name: ${APP_NAME:?err}-php
     hostname: contnr_php
+    logging: *default-logging
+    shm_size: '728mb'
     restart: "unless-stopped"
     #ports:
     #  - "9000:9000"
@@ -76,6 +94,14 @@ services:
       - ./config/mariadb/ssl:/etc/mysql/ssl
       # If you need xdebug you can uncomment the line below.
       #- ./config/php/50_xdebug.ini:/etc/php${VERSION_PHP}/conf.d/50_xdebug.ini
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5
     depends_on:
       - mariadb
 
@@ -90,6 +116,8 @@ services:
     user: "${USR}:${GRP}"
     container_name: ${APP_NAME:?err}-mariadb
     hostname: contnr_db
+    logging: *default-logging
+    shm_size: '728mb'
     restart: "unless-stopped"
     ports:
       - "${MARIADB_PORT}:3306"
@@ -108,6 +136,14 @@ services:
       - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
       - ./config/mariadb/my.cnf:/etc/mysql/my.cnf
       - ./config/mariadb/ssl:/etc/mysql/ssl
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5
     healthcheck:
       test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
       interval: 5s
