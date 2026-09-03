@@ -30,8 +30,6 @@ The __PHP__ configuration is in `config/php/`.
 
 You can set the desired PHP version from the .env file for the versions currently supported by the PHP group, for example 83, 84, or 85.
 
-If you need an older version, for example 7.4 which is no longer supported, you must set the version in the .env file and also modify the `compose.yml` file to set the Dockerfile for the respective version found in the `config/php` folder, where the extensions and Alpine that support that version are established.
-
 The __MARIADB__ configuration is in `config/mariadb/`.
 
 The __MariaDB__ configuration file my.cnf is in `config/mariadb/`.
