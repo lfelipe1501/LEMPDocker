@@ -57,7 +57,7 @@ services:
           cpus: '1.0'
         reservations:
           memory: 256M
-          cpus: '0.5
+          cpus: '0.5'
     depends_on:
       - mariadb
 
@@ -101,7 +101,7 @@ services:
           cpus: '1.0'
         reservations:
           memory: 256M
-          cpus: '0.5
+          cpus: '0.5'
     depends_on:
       - mariadb
 
@@ -143,7 +143,7 @@ services:
           cpus: '1.0'
         reservations:
           memory: 256M
-          cpus: '0.5
+          cpus: '0.5'
     healthcheck:
       test: mariadb-admin ping -h 127.0.0.1 -u root --password=$$MARIADB_ROOT_PASSWORD
       interval: 5s
